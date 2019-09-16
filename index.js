@@ -38,10 +38,11 @@ app.post('/move', (request, response) => {
   // NOTE: Do something here to generate your move
 
   // Response data for movin'
+  const directions = ['up','down','left','right'];
   const data ={
-    directions : ['up','down','left','right'],
-  } ;
-  return response.json(data.directions[Math.floor(Math.random()*3)]);
+    move : directions[Math.floor(Math.random()*3)],
+  };
+  return response.json(data);
 })
 
 app.post('/end', (request, response) => {
