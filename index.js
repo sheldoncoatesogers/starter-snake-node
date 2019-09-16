@@ -41,7 +41,8 @@ app.post('/move', (request, response) => {
   const directions =  ['up','down','left','right'];
   const move = directions[Math.random()*3];
 
-  return response.json(move)
+  const data = 'down';
+  return response.json(data);
 })
 
 app.post('/end', (request, response) => {
