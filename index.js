@@ -27,7 +27,9 @@ app.post('/start', (request, response) => {
 
   // Response data
   const data = {
-    color: '#DFFF00',
+    "color": "#FF4444",
+    "headType": "silly",
+    "tailType": "freckled"
   }
 
   return response.json(data)
@@ -37,10 +39,35 @@ app.post('/start', (request, response) => {
 app.post('/move', (request, response) => {
   // NOTE: Do something here to generate your move
 
+  // Get food location
+  const foodObj = request.board.food[0];
+  const foodX = foodObj.x;
+  const foodY = foodObj.y;
+
+  // Get snek coords
+  const snekObj = request.you.body[0];
+  const snekHeadX = snekObj.x;
+  const snekHeadY = snekObj.y;
+
+  const directions = ['up', 'down', 'left', 'right'];
+  const dir = null;
+
+  // move vertically
+  if (foodY > snekHeadY) {
+    dir = 'up';
+  } else if (foodY < snekHeadY) {
+    dir = 'down'
+  } else { // same line as food, move left or right
+    if (foodX > snekHeadX) {
+      dir = 'right';
+    } else if (foodX < snekHeadX) {
+      dir = 'left'
+    }
+  }
+
   // Response data for movin'
-  const directions = ['up','down','left','right'];
-  const data ={
-    move : directions[Math.floor(Math.random()*3)],
+  const data = {
+    move: dir,
   };
   return response.json(data);
 })
