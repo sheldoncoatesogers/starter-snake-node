@@ -53,21 +53,26 @@ app.post('/move', (request, response) => {
   var dir = '';
 
   // move vertically
-  if (foodY > snekHeadY) {
-    dir = 'up';
-  } else if (foodY < snekHeadY) {
+  // if (foodY > snekHeadY) {
+  //   dir = 'up';
+  // } else if (foodY < snekHeadY) {
+  //   dir = 'down';
+  // } else { // same line as food, move left or right
+  //   if (foodX > snekHeadX) {
+  //     dir = 'right';
+  //   } else if (foodX < snekHeadX) {
+  //     dir = 'left';
+  //   }
+  // }
+
+  dir = 'up';
+  if(foodY < snekHeadY){
     dir = 'down';
-  } else { // same line as food, move left or right
-    if (foodX > snekHeadX) {
-      dir = 'right';
-    } else if (foodX < snekHeadX) {
-      dir = 'left';
-    }
   }
 
   // Response data for movin'
   const data = {
-    move: "down",
+    move: dir,
   };
   return response.json(data);
 })
