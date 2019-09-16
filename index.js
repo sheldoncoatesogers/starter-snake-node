@@ -106,7 +106,7 @@ app.post('/move', (request, response) => {
     potentialMoves.push('up');
     futureVerticalMove.x = snekHeadX;
     futureVerticalMove.y = snekHeadY - 1;
-  } else {
+  } else if (verticalFoodMove == 'down') {
     potentialMoves.push('down');
     futureVerticalMove.x = snekHeadX;
     futureVerticalMove.y = snekHeadY + 1;
@@ -117,7 +117,7 @@ app.post('/move', (request, response) => {
     potentialMoves.push('right');
     futureHorizontalMove.x = snekHeadX + 1;
     futureHorizontalMove.y = snekHeadY;
-  } else {
+  } else if (horizontalFoodMove == 'left') {
     potentialMoves.push('left');
     futureHorizontalMove.x = snekHeadX - 1;
     futureHorizontalMove.y = snekHeadY;
