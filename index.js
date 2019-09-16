@@ -57,10 +57,10 @@ app.post('/move', (request, response) => {
   console.log(allSnakes);
 
   // get board size
-  var boardHeightMax = request.body.board.height;
-  var boardWidthMax = request.body.board.width;
-  const boardHeightMin = 0;
-  const boardWidthMin = 0;
+  var boardHeightMax = request.body.board.height - 1;
+  var boardWidthMax = request.body.board.width - 1;
+  const boardHeightMin = 1;
+  const boardWidthMin = 1;
 
   // dont move back onto yourself logic
   var backwardMove = '';
