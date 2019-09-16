@@ -155,8 +155,10 @@ app.post('/move', (request, response) => {
     for (var m in potentialMoves) {
       if (m == 'right') {
         badMoves.push(m)
+        potentialMoves.push('up');
       } else if (m == 'left') {
         badMoves.push(m)
+        potentialMoves.push('up');
       }
     }
   }
@@ -165,9 +167,11 @@ app.post('/move', (request, response) => {
   if (futureVerticalMove.y <= boardHeightMin || futureVerticalMove.y >= boardHeightMax) {
     for (var m in potentialMoves) {
       if (m == 'up') {
-        badMoves.push(m)
+        badMoves.push(m);
+        potentialMoves.push('left');
       } else if (m == 'down') {
         badMoves.push(m)
+        potentialMoves.push('left');
       }
     }
   }
