@@ -42,26 +42,26 @@ app.post('/move', (request, response) => {
   const foodObj = request.body.board.food[0];
   const foodX = foodObj.x;
   const foodY = foodObj.y;
-  console.log(foodObj);
+  console.log(foodY);
 
   // Get snek coords
   const snekObj = request.body.you.body[0];
   const snekHeadX = snekObj.x;
   const snekHeadY = snekObj.y;
+  console.log(snekHeadY);
 
-  const directions = ['up', 'down', 'left', 'right'];
-  const dir = null;
+  var dir = '';
 
   // move vertically
   if (foodY > snekHeadY) {
     dir = 'up';
   } else if (foodY < snekHeadY) {
-    dir = 'down'
+    dir = 'down';
   } else { // same line as food, move left or right
     if (foodX > snekHeadX) {
       dir = 'right';
     } else if (foodX < snekHeadX) {
-      dir = 'left'
+      dir = 'left';
     }
   }
 
