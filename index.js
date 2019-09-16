@@ -172,14 +172,17 @@ app.post('/move', (request, response) => {
     }
   }
 
-  var directions = ['up', 'down', 'left', 'right'];
-  for (var i = 0; i < directions.length; i++) {
-    if (directions.includes(badMoves[i])) {
-      directions.splice(directions.indexOf(badMoves[i]));
+  for (var i = 0; i < potentialMoves.length; i++) {
+    if (potentialMoves.includes(badMoves[i])) {
+      potentialMoves.splice(potentialMoves.indexOf(badMoves[i]));
     }
   };
 
-  var dir = directions[1];
+  if(potentialMoves.indexOf(prevMove) >= 0){
+    potentialMoves.splice(potentialMoves.indexOf(prevMove))
+  }
+
+  dir = potentialMoves[0];
 
   // body coordinates ************************** TODO
 
