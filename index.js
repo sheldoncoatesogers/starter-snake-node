@@ -179,7 +179,7 @@ app.post('/move', (request, response) => {
     }
   };
 
-  var dir = directions[0];
+  var dir = directions[1];
 
   // body coordinates ************************** TODO
 
