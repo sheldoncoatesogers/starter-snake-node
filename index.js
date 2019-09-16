@@ -66,7 +66,7 @@ app.post('/move', (request, response) => {
   // }
 
   dir = 'up';
-  if(foodY < snekHeadY){
+  if(foodY > snekHeadY){
     dir = 'down';
   }
 
