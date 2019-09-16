@@ -38,14 +38,14 @@ app.post('/start', (request, response) => {
 // Handle POST request to '/move'
 app.post('/move', (request, response) => {
   // NOTE: Do something here to generate your move
-
   // Get food location
-  const foodObj = request.board.food[0];
+  const foodObj = request.body.board.food[0];
   const foodX = foodObj.x;
   const foodY = foodObj.y;
+  console.log(foodObj);
 
   // Get snek coords
-  const snekObj = request.you.body[0];
+  const snekObj = request.body.you.body[0];
   const snekHeadX = snekObj.x;
   const snekHeadY = snekObj.y;
 
