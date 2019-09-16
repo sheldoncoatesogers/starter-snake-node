@@ -54,9 +54,9 @@ app.post('/move', (request, response) => {
 
   // move vertically
   if (foodY > snekHeadY) {
-    dir = 'down';
+    dir = 'up';
   } else if (foodY < snekHeadY) {
-    dir = 'up'
+    dir = 'down'
   } else { // same line as food, move left or right
     if (foodX > snekHeadX) {
       dir = 'right';
