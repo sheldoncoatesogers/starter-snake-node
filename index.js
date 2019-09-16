@@ -97,7 +97,7 @@ app.post('/move', (request, response) => {
 
 
   //potential and bad moves list
-  var potentialMoves = [];
+  var potentialMoves = ['left', 'right', 'up', 'down'];
   var badMoves = [];
 
   // convert directions to coords
@@ -182,18 +182,18 @@ app.post('/move', (request, response) => {
     potentialMoves.splice(potentialMoves.indexOf(prevMove), 1);
   }
 
-  var directions = ['left', 'right', 'up', 'down'];
-  for (var i = 0; i < badMoves.length; i++) {
-    if (directions.indexOf(badMoves[i]) > -1) {
-      directions.splice(directions.indexOf(badMoves[i]), 1);
-    }
-  };
+  // var directions = ['left', 'right', 'up', 'down'];
+  // for (var i = 0; i < badMoves.length; i++) {
+  //   if (directions.indexOf(badMoves[i]) > -1) {
+  //     directions.splice(directions.indexOf(badMoves[i]), 1);
+  //   }
+  // };
 
-  for (var i = 0; i < directions.length; i++) {
-    if (!(potentialMoves.indexOf(directions[i]) > -1)) {
-      potentialMoves.push(directions[i]);
-    }
-  };
+  // for (var i = 0; i < directions.length; i++) {
+  //   if (!(potentialMoves.indexOf(directions[i]) > -1)) {
+  //     potentialMoves.push(directions[i]);
+  //   }
+  // };
 
 
   dir = potentialMoves[Math.floor(Math.random() * potentialMoves.length)];
