@@ -37,7 +37,7 @@ app.post('/start', (request, response) => {
 app.post('/move', (request, response) => {
   // NOTE: Do something here to generate your move
 
-  // Response data
+  // Response data for movin'
   const directions =  ['up','down','left','right'];
   const move = directions[Math.random()*3];
 
