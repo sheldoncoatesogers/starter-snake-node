@@ -34,7 +34,7 @@ app.post('/start', (request, response) => {
 
   return response.json(data)
 })
-
+var prevMove = '';
 // Handle POST request to '/move'
 app.post('/move', (request, response) => {
   // NOTE: Do something here to generate your move
@@ -42,30 +42,150 @@ app.post('/move', (request, response) => {
   const foodObj = request.body.board.food[0];
   const foodX = foodObj.x;
   const foodY = foodObj.y;
-  console.log(foodY);
 
   // Get snek coords
   const snekObj = request.body.you.body[0];
   const snekHeadX = snekObj.x;
   const snekHeadY = snekObj.y;
-  console.log(snekHeadY);
 
-  var dir = '';
+  // other snakes ... request.body.board.snakes.body[0]
+  var otherSnakes = request.body.board.snakes;
+  var allSnakes = [];
+  for (var i = 0; i < otherSnakes.length; i++) {
+    allSnakes = allSnakes.concat(otherSnakes[i].body);
+  }
+  console.log(allSnakes);
 
-  // move vertically
-  if (foodY < snekHeadY) {
-    dir = 'up';
-  } else if (foodY > snekHeadY) {
-    dir = 'down';
-  } else { // same line as food, move left or right
-    if (foodX > snekHeadX) {
-      dir = 'right';
-    } else if (foodX < snekHeadX) {
-      dir = 'left';
+  // get board size
+  var boardHeightMax = request.body.board.height;
+  var boardWidthMax = request.body.board.width;
+  const boardHeightMin = 0;
+  const boardWidthMin = 0;
+
+  // dont move back onto yourself logic
+  var backwardMove = '';
+  if (prevMove == '') {
+    //do nothing for now
+  } else {
+    if (prevMove == 'up') {
+      backwardMove = 'down';
+    } else if (prevMove == 'down') {
+      backwardMove = 'up';
+    } else if (prevMove == 'right') {
+      backwardMove = 'left';
+    } else {
+      backwardMove = 'right';
     }
   }
 
+
+  var verticalFoodMove = '';
+  // move vertically
+  if (foodY < snekHeadY) {
+    verticalFoodMove = 'up';
+  } else if (foodY > snekHeadY) {
+    verticalFoodMove = 'down';
+  }
+
+  var horizontalFoodMove = '';
+  // move horizontally
+  if (foodX > snekHeadX) {
+    horizontalFoodMove = 'right';
+  } else if (foodX < snekHeadX) {
+    horizontalFoodMove = 'left';
+  }
+
+
+  //potential and bad moves list
+  var potentialMoves = [];
+  var badMoves = [];
+
+  // convert directions to coords
+  var futureVerticalMove = { x: 0, y: 0 };
+  if (verticalFoodMove == 'up') {
+    potentialMoves.push('up');
+    futureVerticalMove.x = snekHeadX;
+    futureVerticalMove.y = snekHeadY - 1;
+  } else {
+    potentialMoves.push('down');
+    futureVerticalMove.x = snekHeadX;
+    futureVerticalMove.y = snekHeadY + 1;
+  }
+
+  var futureHorizontalMove = { x: 0, y: 0 };
+  if (horizontalFoodMove == 'right') {
+    potentialMoves.push('right');
+    futureHorizontalMove.x = snekHeadX + 1;
+    futureHorizontalMove.y = snekHeadY;
+  } else {
+    potentialMoves.push('left');
+    futureHorizontalMove.x = snekHeadX - 1;
+    futureHorizontalMove.y = snekHeadY;
+  }
+
+
+  //vertical future move into another snek
+  for (var i = 0; i < allSnakes.length; i++) {
+    if (allSnakes[i].x == futureVerticalMove.x && allSnakes[i].y == futureVerticalMove.y) {
+      for (var m in potentialMoves) {
+        if (m == 'up') {
+          badMoves.push(m)
+        } else if (m == 'down') {
+          badMoves.push(m)
+        }
+      }
+    }
+  }
+
+  // horizontal future move into another snek
+  for (var i = 0; i < allSnakes.length; i++) {
+    if (allSnakes[i].x == futureHorizontalMove.x && allSnakes[i].y == futureHorizontalMove.y) {
+      for (var m in potentialMoves) {
+        if (m == 'right') {
+          badMoves.push(m)
+        } else if (m == 'left') {
+          badMoves.push(m)
+        }
+      }
+    }
+  }
+
+  // horizontal future move into wall
+  if (futureHorizontalMove.x < boardWidthMin || futureHorizontalMove.x > boardWidthMax) {
+    for (var m in potentialMoves) {
+      if (m == 'right') {
+        badMoves.push(m)
+      } else if (m == 'left') {
+        badMoves.push(m)
+      }
+    }
+  }
+
+  // vertical future move into wall
+  if (futureVerticalMove.y < boardHeightMin || futureVerticalMove.y > boardHeightMax) {
+    for (var m in potentialMoves) {
+      if (m == 'up') {
+        badMoves.push(m)
+      } else if (m == 'down') {
+        badMoves.push(m)
+      }
+    }
+  }
+
+  var directions = ['up', 'down', 'left', 'right'];
+  for (var i = 0; i < directions.length; i++) {
+    if (directions.includes(badMoves[i])) {
+      directions.splice(directions.indexOf(badMoves[i]));
+    }
+  };
+
+  var dir = directions[0];
+
+  // body coordinates ************************** TODO
+
   // Response data for movin'
+  //set prevMove to the move that is determined at the end************* TODO
+  prevMove = dir;
   const data = {
     move: dir,
   };
