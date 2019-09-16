@@ -184,22 +184,8 @@ app.post('/move', (request, response) => {
     }
   }
 
-
-  // var directions = ['left', 'right', 'up', 'down'];
-  // for (var i = 0; i < badMoves.length; i++) {
-  //   if (directions.indexOf(badMoves[i]) > -1) {
-  //     directions.splice(directions.indexOf(badMoves[i]), 1);
-  //   }
-  // };
-
-  // for (var i = 0; i < directions.length; i++) {
-  //   if (!(potentialMoves.indexOf(directions[i]) > -1)) {
-  //     potentialMoves.push(directions[i]);
-  //   }
-  // };
-
-
-  dir = potentialMoves[Math.floor(Math.random() * potentialMoves.length)];
+  // dir = potentialMoves[Math.floor(Math.random() * potentialMoves.length)];
+  dir = potentialMoves[0];
 
   // body coordinates ************************** TODO
 
@@ -207,7 +193,7 @@ app.post('/move', (request, response) => {
   //set prevMove to the move that is determined at the end************* TODO
   prevMove = dir;
   const data = {
-    move: dir,
+    move: dir
   };
   return response.json(data);
 })
