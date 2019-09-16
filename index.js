@@ -151,7 +151,7 @@ app.post('/move', (request, response) => {
   }
 
   // horizontal future move into wall
-  if (futureHorizontalMove.x < boardWidthMin || futureHorizontalMove.x > boardWidthMax) {
+  if (futureHorizontalMove.x <= boardWidthMin || futureHorizontalMove.x >= boardWidthMax) {
     for (var m in potentialMoves) {
       if (m == 'right') {
         badMoves.push(m)
@@ -162,7 +162,7 @@ app.post('/move', (request, response) => {
   }
 
   // vertical future move into wall
-  if (futureVerticalMove.y < boardHeightMin || futureVerticalMove.y > boardHeightMax) {
+  if (futureVerticalMove.y <= boardHeightMin || futureVerticalMove.y >= boardHeightMax) {
     for (var m in potentialMoves) {
       if (m == 'up') {
         badMoves.push(m)
@@ -174,15 +174,15 @@ app.post('/move', (request, response) => {
 
   for (var i = 0; i < potentialMoves.length; i++) {
     if (potentialMoves.includes(badMoves[i])) {
-      potentialMoves.splice(potentialMoves.indexOf(badMoves[i]));
+      potentialMoves.splice(potentialMoves.indexOf(badMoves[i]), 1);
     }
   };
 
   if(potentialMoves.indexOf(prevMove) >= 0){
-    potentialMoves.splice(potentialMoves.indexOf(prevMove))
+    potentialMoves.splice(potentialMoves.indexOf(prevMove), 1);
   }
 
-  dir = potentialMoves[0];
+  dir = potentialMoves[Math.floor(Math.random() * potentialMoves.length)];
 
   // body coordinates ************************** TODO
 
