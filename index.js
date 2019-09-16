@@ -97,7 +97,7 @@ app.post('/move', (request, response) => {
 
 
   //potential and bad moves list
-  var potentialMoves = ['left', 'right', 'up', 'down'];
+  var potentialMoves = [];
   var badMoves = [];
 
   // convert directions to coords
@@ -185,9 +185,6 @@ app.post('/move', (request, response) => {
   }
 
   dir = potentialMoves[Math.floor(Math.random() * potentialMoves.length)];
-  // dir = potentialMoves[0];
-
-  // body coordinates ************************** TODO
 
   // Response data for movin'
   //set prevMove to the move that is determined at the end************* TODO
