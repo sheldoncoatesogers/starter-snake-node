@@ -67,7 +67,7 @@ app.post('/move', (request, response) => {
 
   // Response data for movin'
   const data = {
-    move: dir,
+    move: "down",
   };
   return response.json(data);
 })
