@@ -184,8 +184,8 @@ app.post('/move', (request, response) => {
     }
   }
 
-  // dir = potentialMoves[Math.floor(Math.random() * potentialMoves.length)];
-  dir = potentialMoves[0];
+  dir = potentialMoves[Math.floor(Math.random() * potentialMoves.length)];
+  // dir = potentialMoves[0];
 
   // body coordinates ************************** TODO
 
