@@ -178,9 +178,12 @@ app.post('/move', (request, response) => {
     }
   };
 
-  if (potentialMoves.indexOf(prevMove) > -1) {
-    potentialMoves.splice(potentialMoves.indexOf(prevMove), 1);
+  if (prevMove != "") {
+    if (potentialMoves.indexOf(prevMove) > -1) {
+      potentialMoves.splice(potentialMoves.indexOf(prevMove), 1);
+    }
   }
+
 
   // var directions = ['left', 'right', 'up', 'down'];
   // for (var i = 0; i < badMoves.length; i++) {
