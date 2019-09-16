@@ -172,13 +172,13 @@ app.post('/move', (request, response) => {
     }
   }
 
-  for (var i = 0; i < potentialMoves.length; i++) {
-    if (potentialMoves.includes(badMoves[i])) {
+  for (var i = 0; i < badMoves.length; i++) {
+    if (potentialMoves.indexOf(badMoves[i]) > -1) {
       potentialMoves.splice(potentialMoves.indexOf(badMoves[i]), 1);
     }
   };
 
-  if(potentialMoves.indexOf(prevMove) >= 0){
+  if(potentialMoves.indexOf(prevMove) > -1){
     potentialMoves.splice(potentialMoves.indexOf(prevMove), 1);
   }
 
