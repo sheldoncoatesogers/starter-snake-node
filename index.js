@@ -155,10 +155,8 @@ app.post('/move', (request, response) => {
     for (var m in potentialMoves) {
       if (m == 'right') {
         badMoves.push(m)
-        potentialMoves.push('up');
       } else if (m == 'left') {
         badMoves.push(m)
-        potentialMoves.push('up');
       }
     }
   }
@@ -168,10 +166,8 @@ app.post('/move', (request, response) => {
     for (var m in potentialMoves) {
       if (m == 'up') {
         badMoves.push(m);
-        potentialMoves.push('left');
       } else if (m == 'down') {
         badMoves.push(m)
-        potentialMoves.push('left');
       }
     }
   }
@@ -182,9 +178,23 @@ app.post('/move', (request, response) => {
     }
   };
 
-  if(potentialMoves.indexOf(prevMove) > -1){
+  if (potentialMoves.indexOf(prevMove) > -1) {
     potentialMoves.splice(potentialMoves.indexOf(prevMove), 1);
   }
+
+  var directions = ['left', 'right', 'up', 'down'];
+  for (var i = 0; i < badMoves.length; i++) {
+    if (directions.indexOf(badMoves[i]) > -1) {
+      directions.splice(directions.indexOf(badMoves[i]), 1);
+    }
+  };
+
+  for (var i = 0; i < directions.length; i++) {
+    if (!(potentialMoves.indexOf(directions[i]) > -1)) {
+      potentialMoves.push(directions[i]);
+    }
+  };
+
 
   dir = potentialMoves[Math.floor(Math.random() * potentialMoves.length)];
 
